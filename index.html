@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gisel Ibañez · Clases Particulares de Matemática & Física</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f0e8;
+    --cream: #ede7d9;
+    --accent: #c8522a;
+    --accent2: #2a6bc8;
+    --muted: #7a7060;
+    --rule: #d4cdc0;
+    --math-bg: #1a2340;
+    --phys-bg: #1a3028;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--math-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-right {
+    background: var(--phys-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left::before,
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 80%, rgba(200,82,42,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-right::before {
+    background-image: radial-gradient(circle at 80% 20%, rgba(42,107,200,0.15) 0%, transparent 60%);
+  }
+
+  .subject-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .hero-right .subject-tag { color: #5ba3e0; }
+
+  .hero-formula {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    opacity: 0.92;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  .hero-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    width: 240px;
+  }
+
+  .hero-badge {
+    background: var(--paper);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 0 8px rgba(245,240,232,0.2), 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .hero-title {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 12px 24px;
+    border-radius: 100px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    z-index: 100;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 40px; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 60px;
+    font-size: 15px;
+  }
+
+  /* ── TARIFAS ── */
+  #tarifas { background: var(--cream); }
+
+  .tarifa-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 900px) {
+    .tarifa-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .tarifa-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 40px 36px;
+    position: relative;
+    transition: transform 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+  }
+
+  .tarifa-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+
+  .tarifa-card.featured {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  .tarifa-card.featured .tarifa-materia,
+  .tarifa-card.featured .tarifa-precio-label { color: rgba(255,255,255,0.5); }
+
+  .tarifa-card.featured .tarifa-feature { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+
+  .tarifa-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .tarifa-materia {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .tarifa-plan {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .tarifa-precio {
+    margin-bottom: 8px;
+  }
+
+  .tarifa-precio-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .tarifa-precio-unit {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .tarifa-precio-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .tarifa-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .tarifa-feature {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .tarifa-feature::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .tarifa-card.featured .tarifa-feature::before { color: #90d4a0; }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .btn-dark:hover { background: #333; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-outline:hover { background: var(--ink); color: #fff; }
+
+  .btn-light {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .btn-light:hover { background: var(--cream); }
+
+  /* ── CONTENIDO ── */
+  #contenido { background: var(--paper); }
+
+  .materia-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 48px;
+    background: var(--cream);
+    padding: 4px;
+    border-radius: 100px;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    padding: 10px 28px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .tab-btn.active {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .ejercicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .ejercicio-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid var(--rule);
+    transition: transform 0.2s;
+  }
+
+  .ejercicio-card:hover { transform: translateY(-2px); }
+
+  .ej-topic {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .ej-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .ej-enunciado {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  .ej-formula {
+    background: var(--ink);
+    color: #90d4a0;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  details summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent2);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  details summary::before {
+    content: '▶';
+    font-size: 9px;
+    transition: transform 0.2s;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details .solucion {
+    margin-top: 12px;
+    padding: 16px;
+    background: rgba(42,107,200,0.08);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    border-left: 3px solid var(--accent2);
+  }
+
+  /* ── RESEÑAS ── */
+  #resenas { background: var(--cream); }
+
+  .resenas-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .resenas-lista { display: flex; flex-direction: column; gap: 20px; }
+
+  .resena-card {
+    background: var(--paper);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--rule);
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .resena-stars { color: #e8a020; font-size: 16px; margin-bottom: 10px; letter-spacing: 2px; }
+
+  .resena-texto {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .resena-autor {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .resena-materia {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+
+  /* Formulario reseña */
+  .resena-form-box {
+    background: var(--paper);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid var(--rule);
+    position: sticky;
+    top: 80px;
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--rule);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: var(--paper);
+    color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-control:focus { border-color: var(--ink); }
+
+  textarea.form-control { resize: vertical; min-height: 100px; }
+
+  .star-selector { display: flex; gap: 8px; margin-top: 4px; }
+
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--rule);
+    transition: color 0.15s, transform 0.15s;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .star-btn:hover, .star-btn.selected { color: #e8a020; transform: scale(1.1); }
+
+  .success-msg {
+    display: none;
+    background: rgba(42,200,100,0.1);
+    border: 1px solid rgba(42,200,100,0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #1a6b30;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  /* ── CONTACTO ── */
+  #contacto { background: var(--ink); color: #fff; }
+
+  #contacto .section-label { color: rgba(255,255,255,0.4); }
+  #contacto .section-title { color: #fff; }
+  #contacto .section-sub { color: rgba(255,255,255,0.5); }
+
+  .contacto-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .mapa-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mapa-embed {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
+    height: 280px;
+  }
+
+  .mapa-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .mapa-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .mapa-link:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+  .mapa-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
+  }
+
+  .contacto-info { display: flex; flex-direction: column; gap: 32px; }
+
+  .contacto-item { display: flex; align-items: flex-start; gap: 16px; }
+
+  .contacto-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .contacto-item-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+
+  .contacto-item-value {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+
+  .horario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .horario-row {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .horario-row span { color: rgba(255,255,255,0.9); }
+
+  /* Form contacto */
+  .contacto-form {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+  }
+
+  .contacto-form .form-control {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  .contacto-form .form-control::placeholder { color: rgba(255,255,255,0.3); }
+  .contacto-form .form-control:focus { border-color: rgba(255,255,255,0.5); }
+  .contacto-form .form-label { color: rgba(255,255,255,0.4); }
+
+  .contacto-form select.form-control option { background: #1a1a1a; }
+
+  .btn-accent {
+    background: var(--accent);
+    color: #fff;
+    width: 100%;
+  }
+
+  .btn-accent:hover { background: #b34420; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0908;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 28px 40px;
+    font-size: 13px;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left, .hero-right { padding: 60px 28px; }
+    .hero-right { display: none; }
+    .hero-center { position: static; transform: none; width: 100%; text-align: center; padding: 40px 28px; background: var(--paper); }
+    .hero-badge { width: 160px; height: 160px; }
+    .hero-name { font-size: 16px; }
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+    section { padding: 60px 20px; }
+    .resenas-layout, .contacto-layout { grid-template-columns: 1fr; gap: 40px; }
+    .mapa-embed { height: 220px; }
+    .resena-form-box { position: static; }
+    .tarifa-grid { grid-template-columns: 1fr; }    .ejercicios-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="subject-tag">Matemática</div>
+    <div class="hero-formula">f(x) = ax² + bx + c</div>
+    <div class="hero-formula" style="font-size:clamp(20px,3vw,36px); opacity:0.6">y = mx + b</div>
+    <p class="hero-desc">Funciones, álgebra, trigonometría. Desde los fundamentos hasta el análisis avanzado.</p>
+  </div>
+
+  <div class="hero-center">
+    <div class="hero-badge">
+      <div style="font-size:32px;margin-bottom:4px">📐</div>
+      <div class="hero-name">María Gisel<br>Ibañez</div>
+      <div class="hero-title">Matemática & Física</div>
+      <div style="margin-top:6px;font-size:11px;color:var(--muted);font-family:'DM Sans',sans-serif;letter-spacing:0.03em">desde 2016</div>
+    </div>
+    <a href="#tarifas" class="hero-cta">Ver tarifas</a>
+  </div>
+
+  <div class="hero-right">
+    <div class="subject-tag">Física</div>
+    <div class="hero-formula">v = v₀ + a·t</div>
+    <div class="hero-formula" style="font-size:clamp(20px,3vw,36px); opacity:0.6">x = x₀ + v₀t + ½at²</div>
+    <p class="hero-desc">Cinemática, dinámica, energía. Entendé los fenómenos que mueven el mundo.</p>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo">Gisel Ibañez</a>
+  <ul class="nav-links">
+    <li><a href="#tarifas">Tarifas</a></li>
+    <li><a href="#contenido">Ejercicios</a></li>
+    <li><a href="#resenas">Reseñas</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ FRANJA EXPERIENCIA ═══ -->
+<div style="background:var(--ink);color:#fff;padding:18px 40px;display:flex;justify-content:center;gap:60px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08)">
+    <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:22px">🎓</span>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2px">Experiencia</div>
+      <div style="font-size:14px;font-weight:500">Desde 2016 · +9 años</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:22px">📍</span>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2px">Modalidad</div>
+      <div style="font-size:14px;font-weight:500">Presencial y Virtual</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:22px">📐</span>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2px">Materias</div>
+      <div style="font-size:14px;font-weight:500">Matemática & Física</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:22px">🏫</span>
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2px">Niveles</div>
+      <div style="font-size:14px;font-weight:500">Secundario · Universitario</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TARIFAS ═══ -->
+<section id="tarifas">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Tarifas</div>
+    <h2 class="section-title">Planes de clases</h2>
+    <p class="section-sub">Precios accesibles con más de 9 años de experiencia. Sin compromisos a largo plazo.</p>
+
+    <div class="tarifa-grid">
+
+      <div class="tarifa-card">
+        <div class="tarifa-materia">Clase Individual · 1 hora</div>
+        <div class="tarifa-plan">Secundario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$10.000</span>
+        </div>
+        <div class="tarifa-precio-label">por clase · Matemática o Física</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">Clase 1 a 1 personalizada</li>
+          <li class="tarifa-feature">Resolución de ejercicios</li>
+          <li class="tarifa-feature">Material de apoyo incluido</li>
+          <li class="tarifa-feature">Consultas por WhatsApp</li>
+        </ul>
+        <a href="#contacto" class="btn btn-outline">Reservar clase</a>
+      </div>
+
+      <div class="tarifa-card">
+        <div class="tarifa-materia">Clase Individual · 1 hora</div>
+        <div class="tarifa-plan">Universitario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$12.000</span>
+        </div>
+        <div class="tarifa-precio-label">por clase · Matemática o Física</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">Clase 1 a 1 personalizada</li>
+          <li class="tarifa-feature">Resolución de ejercicios</li>
+          <li class="tarifa-feature">Material de apoyo incluido</li>
+          <li class="tarifa-feature">Consultas por WhatsApp</li>
+        </ul>
+        <a href="#contacto" class="btn btn-outline">Reservar clase</a>
+      </div>
+
+      <div class="tarifa-card featured">
+        <div class="tarifa-badge">Más elegido</div>
+        <div class="tarifa-materia">Pack Mensual · 8 clases</div>
+        <div class="tarifa-plan">Secundario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$72.000</span>
+        </div>
+        <div class="tarifa-precio-label">8 clases por mes — ahorrás 10%</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">2 clases semanales de 1 hora</li>
+          <li class="tarifa-feature">Seguimiento continuo del progreso</li>
+          <li class="tarifa-feature">Ejercicios personalizados semanales</li>
+          <li class="tarifa-feature">Consultas ilimitadas por WhatsApp</li>
+          <li class="tarifa-feature">Preparación para exámenes</li>
+        </ul>
+        <a href="#contacto" class="btn btn-light">Reservar pack</a>
+      </div>
+
+      <div class="tarifa-card featured" style="background:#1a2340;">
+        <div class="tarifa-badge" style="background:var(--accent2)">Universitario</div>
+        <div class="tarifa-materia">Pack Mensual · 8 clases</div>
+        <div class="tarifa-plan">Universitario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$86.400</span>
+        </div>
+        <div class="tarifa-precio-label">8 clases por mes — ahorrás 10%</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">2 clases semanales de 1 hora</li>
+          <li class="tarifa-feature">Seguimiento continuo del progreso</li>
+          <li class="tarifa-feature">Ejercicios personalizados semanales</li>
+          <li class="tarifa-feature">Consultas ilimitadas por WhatsApp</li>
+          <li class="tarifa-feature">Preparación para parciales y finales</li>
+        </ul>
+        <a href="#contacto" class="btn btn-light">Reservar pack</a>
+      </div>
+
+      <div class="tarifa-card">
+        <div class="tarifa-materia">Intensivo Examen · 1.5 horas</div>
+        <div class="tarifa-plan">Secundario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$14.000</span>
+        </div>
+        <div class="tarifa-precio-label">por clase de 90 minutos</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">Enfoque en parciales o finales</li>
+          <li class="tarifa-feature">Ejercicios de exámenes anteriores</li>
+          <li class="tarifa-feature">Estrategias para rendir mejor</li>
+        </ul>
+        <a href="#contacto" class="btn btn-outline">Reservar clase</a>
+      </div>
+
+      <div class="tarifa-card">
+        <div class="tarifa-materia">Intensivo Examen · 1.5 horas</div>
+        <div class="tarifa-plan">Universitario</div>
+        <div class="tarifa-precio">
+          <span class="tarifa-precio-num">$17.000</span>
+        </div>
+        <div class="tarifa-precio-label">por clase de 90 minutos</div>
+        <ul class="tarifa-features">
+          <li class="tarifa-feature">Enfoque en parciales o finales</li>
+          <li class="tarifa-feature">Ejercicios de exámenes anteriores</li>
+          <li class="tarifa-feature">Estrategias para rendir mejor</li>
+        </ul>
+        <a href="#contacto" class="btn btn-outline">Reservar clase</a>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted)">💬 ¿Tenés alguna necesidad especial? <a href="#contacto" style="color:var(--accent);text-decoration:none;font-weight:500">Escribime y armamos algo a medida.</a></p>
+  </div>
+</section>
+
+<!-- ═══ CONTENIDO / EJERCICIOS ═══ -->
+<section id="contenido">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Contenido</div>
+    <h2 class="section-title">Ejercicios de práctica</h2>
+    <p class="section-sub">Una muestra de los temas que trabajamos. Intentá resolverlos y después mirá la solución.</p>
+
+    <div class="materia-tabs">
+      <button class="tab-btn active" onclick="switchTab('matematica', this)">📐 Matemática</button>
+      <button class="tab-btn" onclick="switchTab('fisica', this)">⚡ Física</button>
+    </div>
+
+    <!-- MATEMÁTICA -->
+    <div class="tab-content active" id="tab-matematica">
+      <div class="ejercicios-grid">
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">Función Lineal</div>
+          <div class="ej-title">Encontrar la ecuación de la recta</div>
+          <p class="ej-enunciado">Una recta pasa por los puntos A(2, 5) y B(−1, −1). Hallá la ecuación de la recta en la forma y = mx + b e indicá pendiente y ordenada al origen.</p>
+          <div class="ej-formula">y = mx + b<br>m = (y₂ − y₁) / (x₂ − x₁)</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              <strong>Paso 1:</strong> Calculamos la pendiente:<br>
+              m = (−1 − 5) / (−1 − 2) = −6 / −3 = <strong>2</strong><br><br>
+              <strong>Paso 2:</strong> Usamos punto-pendiente con A(2, 5):<br>
+              5 = 2·(2) + b → b = 5 − 4 = <strong>1</strong><br><br>
+              <strong>Resultado:</strong> y = 2x + 1
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">Función Lineal</div>
+          <div class="ej-title">Intersección de dos rectas</div>
+          <p class="ej-enunciado">Dadas las rectas r: y = 3x − 2 y s: y = −x + 6, encontrá el punto de intersección y determiná si son paralelas, secantes o coincidentes.</p>
+          <div class="ej-formula">Sistema: 3x − 2 = −x + 6</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              <strong>Son secantes</strong> (pendientes distintas: m₁=3 ≠ m₂=−1)<br><br>
+              3x − 2 = −x + 6<br>
+              4x = 8 → x = <strong>2</strong><br>
+              y = 3·(2) − 2 = <strong>4</strong><br><br>
+              <strong>Punto de intersección:</strong> (2, 4)
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">Función Cuadrática</div>
+          <div class="ej-title">Raíces y vértice de la parábola</div>
+          <p class="ej-enunciado">Dada f(x) = x² − 4x − 5, calculá las raíces usando la fórmula cuadrática, las coordenadas del vértice y si la parábola abre hacia arriba o abajo.</p>
+          <div class="ej-formula">x = (−b ± √(b²−4ac)) / 2a<br>Vértice: xᵥ = −b/2a</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              a=1, b=−4, c=−5<br>
+              Δ = 16 + 20 = 36 → √Δ = 6<br><br>
+              x₁ = (4 + 6)/2 = <strong>5</strong><br>
+              x₂ = (4 − 6)/2 = <strong>−1</strong><br><br>
+              xᵥ = −(−4)/(2·1) = 2<br>
+              yᵥ = 4 − 8 − 5 = <strong>−9</strong><br><br>
+              <strong>Vértice:</strong> (2, −9) · <strong>Abre hacia arriba</strong> (a > 0)
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">Función Cuadrática</div>
+          <div class="ej-title">Problema de área máxima</div>
+          <p class="ej-enunciado">Se tiene un alambre de 40 m para cercar un terreno rectangular. ¿Cuáles deben ser las dimensiones para que el área sea máxima?</p>
+          <div class="ej-formula">Perímetro: 2x + 2y = 40<br>Área: A(x) = x · (20 − x)</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              De 2x + 2y = 40 → y = 20 − x<br>
+              A(x) = x(20−x) = −x² + 20x<br><br>
+              Vértice: xᵥ = −20/(2·(−1)) = <strong>10</strong><br>
+              y = 20 − 10 = <strong>10</strong><br><br>
+              <strong>El área máxima es 100 m²</strong> con un cuadrado de 10×10 m.
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FÍSICA -->
+    <div class="tab-content" id="tab-fisica">
+      <div class="ejercicios-grid">
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">M.R.U.</div>
+          <div class="ej-title">Tiempo de encuentro de dos móviles</div>
+          <p class="ej-enunciado">Dos autos parten en sentidos opuestos desde el mismo punto. El auto A va a 60 km/h y el auto B a 80 km/h. ¿En cuánto tiempo estarán separados 350 km?</p>
+          <div class="ej-formula">x = v · t (M.R.U.)<br>Separación = (vA + vB) · t</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              Como van en sentidos opuestos, las velocidades se suman:<br>
+              v_rel = 60 + 80 = 140 km/h<br><br>
+              350 = 140 · t<br>
+              t = 350/140 = <strong>2.5 horas</strong><br><br>
+              <strong>Se separan 350 km a las 2 horas y 30 minutos.</strong>
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">M.R.U.</div>
+          <div class="ej-title">Velocidad media en un viaje</div>
+          <p class="ej-enunciado">Un ciclista recorre 60 km en 2 h, luego descansa 30 min y recorre otros 40 km en 1 h. ¿Cuál es su velocidad media durante todo el recorrido?</p>
+          <div class="ej-formula">v_media = Δx_total / Δt_total</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              Distancia total = 60 + 40 = <strong>100 km</strong><br>
+              Tiempo total = 2 + 0.5 + 1 = <strong>3.5 horas</strong><br><br>
+              v_media = 100 / 3.5 ≈ <strong>28.6 km/h</strong><br><br>
+              ⚠️ La velocidad media <em>incluye</em> el tiempo de descanso.
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">M.R.U.V.</div>
+          <div class="ej-title">Frenado de un automóvil</div>
+          <p class="ej-enunciado">Un auto viaja a 90 km/h y frena con una desaceleración de 5 m/s². ¿Cuánto tiempo tarda en detenerse y qué distancia recorre durante el frenado?</p>
+          <div class="ej-formula">v = v₀ + a·t<br>x = v₀·t + ½·a·t²<br>v² = v₀² + 2·a·x</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              v₀ = 90 km/h = 25 m/s · a = −5 m/s²<br><br>
+              <strong>Tiempo:</strong> 0 = 25 + (−5)t → t = <strong>5 s</strong><br><br>
+              <strong>Distancia:</strong> x = 25·5 + ½·(−5)·25<br>
+              x = 125 − 62.5 = <strong>62.5 m</strong>
+            </div>
+          </details>
+        </div>
+
+        <div class="ejercicio-card">
+          <div class="ej-topic">M.R.U.V.</div>
+          <div class="ej-title">Caída libre desde una torre</div>
+          <p class="ej-enunciado">Se deja caer una piedra desde una torre de 80 m de altura. Calculá el tiempo que tarda en llegar al suelo y la velocidad con que impacta. (g = 10 m/s²)</p>
+          <div class="ej-formula">y = ½·g·t² (caída libre)<br>v = g·t</div>
+          <details>
+            <summary>Ver solución</summary>
+            <div class="solucion">
+              v₀ = 0 · a = g = 10 m/s²<br><br>
+              <strong>Tiempo:</strong> 80 = ½·10·t² → t² = 16 → t = <strong>4 s</strong><br><br>
+              <strong>Velocidad de impacto:</strong><br>
+              v = 10·4 = <strong>40 m/s = 144 km/h</strong>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESEÑAS ═══ -->
+<section id="resenas">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Reseñas</div>
+    <h2 class="section-title">Lo que dicen los estudiantes</h2>
+    <p class="section-sub">Las experiencias de quienes ya tomaron clases. ¿Ya fuiste alumno? ¡Dejá tu reseña!</p>
+
+    <div class="resenas-layout">
+      <!-- Lista de reseñas -->
+      <div>
+        <div class="resenas-lista" id="resenas-lista">
+
+          <div class="resena-card">
+            <div class="resena-stars">★★★★★</div>
+            <p class="resena-texto">"Gracias a las clases pude aprobar el final de Física que había reprobado dos veces. La forma de explicar cinemática es muy clara y práctica."</p>
+            <div class="resena-autor">Martina G.</div>
+            <div class="resena-materia">Física · Universitario</div>
+          </div>
+
+          <div class="resena-card">
+            <div class="resena-stars">★★★★★</div>
+            <p class="resena-texto">"Nunca había entendido las funciones cuadráticas y en pocas clases me quedó todo clarísimo. Muy buen profe, tiene mucha paciencia."</p>
+            <div class="resena-autor">Lautaro B.</div>
+            <div class="resena-materia">Matemática · Secundario</div>
+          </div>
+
+          <div class="resena-card">
+            <div class="resena-stars">★★★★☆</div>
+            <p class="resena-texto">"Muy buenos los materiales de práctica. Me ayudaron mucho para prepararme para el ingreso a la facultad. Recomiendo el pack mensual."</p>
+            <div class="resena-autor">Sofía R.</div>
+            <div class="resena-materia">Matemática · Ingreso</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Form reseña -->
+      <div class="resena-form-box">
+        <div class="form-title">Dejá tu reseña</div>
+        <p class="form-sub">¿Ya tomaste clases? Contá tu experiencia.</p>
+
+        <div class="form-group">
+          <label class="form-label">Tu nombre</label>
+          <input type="text" class="form-control" id="r-nombre" placeholder="Ej: Juan P.">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Materia</label>
+          <select class="form-control" id="r-materia">
+            <option value="">Seleccioná...</option>
+            <option>Matemática · Secundario</option>
+            <option>Matemática · Universitario</option>
+            <option>Física · Secundario</option>
+            <option>Física · Universitario</option>
+            <option>Matemática y Física · Ingreso</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Calificación</label>
+          <div class="star-selector" id="star-selector">
+            <button class="star-btn" data-val="1" onclick="setStars(1)">★</button>
+            <button class="star-btn" data-val="2" onclick="setStars(2)">★</button>
+            <button class="star-btn" data-val="3" onclick="setStars(3)">★</button>
+            <button class="star-btn" data-val="4" onclick="setStars(4)">★</button>
+            <button class="star-btn" data-val="5" onclick="setStars(5)">★</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tu comentario</label>
+          <textarea class="form-control" id="r-texto" placeholder="Contá tu experiencia con las clases..."></textarea>
+        </div>
+
+        <button class="btn btn-dark" onclick="enviarResena()" style="width:100%">Publicar reseña</button>
+        <div class="success-msg" id="resena-ok">✓ ¡Gracias por tu reseña! Ya está publicada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="contacto">
+  <div class="contacto-layout">
+    <!-- Info -->
+    <div>
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">¿Arrancamos?</h2>
+      <p class="section-sub">Escribime y coordinamos una primera clase de prueba sin compromiso.</p>
+
+      <div class="contacto-info">
+        <div class="contacto-item">
+          <div class="contacto-icon">📱</div>
+          <div>
+            <div class="contacto-item-label">WhatsApp</div>
+            <div class="contacto-item-value">
+              <a href="https://wa.me/5493512264673" target="_blank" rel="noopener"
+                 style="color:rgba(255,255,255,0.85);text-decoration:none;transition:color 0.2s"
+                 onmouseover="this.style.color='#90d4a0'" onmouseout="this.style.color='rgba(255,255,255,0.85)'">
+                +54 9 351 226-4673
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <div class="contacto-icon">✉️</div>
+          <div>
+            <div class="contacto-item-label">Email</div>
+            <div class="contacto-item-value">
+              <a href="mailto:Giibanez7@gmail.com"
+                 style="color:rgba(255,255,255,0.85);text-decoration:none;transition:color 0.2s"
+                 onmouseover="this.style.color='#90d4a0'" onmouseout="this.style.color='rgba(255,255,255,0.85)'">
+                Giibanez7@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <div class="contacto-icon">📍</div>
+          <div>
+            <div class="contacto-item-label">Dirección</div>
+            <div class="contacto-item-value">Av. Cjal. Felipe Belardinelli 4097<br><span style="font-size:13px;color:rgba(255,255,255,0.45)">Córdoba Capital, Argentina</span></div>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <div class="contacto-icon">📍</div>
+          <div>
+            <div class="contacto-item-label">Modalidad</div>
+            <div class="contacto-item-value">Presencial (Córdoba) · Virtual (todo el país)</div>
+          </div>
+        </div>
+
+        <div class="contacto-item">
+          <div class="contacto-icon">🕐</div>
+          <div>
+            <div class="contacto-item-label">Horarios disponibles</div>
+            <div class="horario-grid">
+              <div class="horario-row">Lun–Vie <span>9–21 hs</span></div>
+              <div class="horario-row">Sábados <span>9–14 hs</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="mapa-box">
+      <div class="mapa-label">📍 Ubicación</div>
+      <div class="mapa-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=-31.4588455,-64.1966631&z=16&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=-31.4588455,-64.1966631"
+        target="_blank"
+        rel="noopener"
+        class="mapa-link">
+        <span>🗺️</span> Abrir en Google Maps
+      </a>
+      <a
+        href="https://www.google.com/maps/dir/?api=1&destination=-31.4588455,-64.1966631"
+        target="_blank"
+        rel="noopener"
+        class="mapa-link">
+        <span>🧭</span> Cómo llegar
+      </a>
+    </div>
+
+    <!-- Formulario -->
+    <div class="contacto-form">
+      <div class="form-title" style="color:#fff;margin-bottom:6px">Enviame un mensaje</div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:28px">Te respondo en menos de 24 horas.</p>
+
+      <div class="form-group">
+        <label class="form-label">Nombre completo</label>
+        <input type="text" class="form-control" id="c-nombre" placeholder="Tu nombre">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="c-email" placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp (opcional)</label>
+          <input type="tel" class="form-control" id="c-tel" placeholder="+54 9 ...">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Me interesa</label>
+        <select class="form-control" id="c-interes">
+          <option value="">Seleccioná una materia...</option>
+          <option>Matemática – Nivel secundario</option>
+          <option>Matemática – Nivel universitario</option>
+          <option>Física – Nivel secundario</option>
+          <option>Física – Nivel universitario</option>
+          <option>Ambas materias</option>
+          <option>Preparación para ingreso</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Mensaje</label>
+        <textarea class="form-control" id="c-mensaje" style="min-height:120px" placeholder="Contame en qué temas necesitás ayuda, tu nivel actual, si tenés examen próximo..."></textarea>
+      </div>
+
+      <button class="btn btn-accent" onclick="enviarContacto()">Enviar mensaje ✉️</button>
+      <div class="success-msg" id="contacto-ok" style="color:#90d4a0;background:rgba(42,200,100,0.1);border-color:rgba(42,200,100,0.3)">✓ ¡Mensaje enviado! Te respondo a la brevedad.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>© 2026 <span>María Gisel Ibañez</span> · Clases particulares de Matemática & Física · Córdoba, Argentina</p>
+</footer>
+
+<script>
+  // ── Tabs ──
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── Estrellas ──
+  let selectedStars = 0;
+  function setStars(n) {
+    selectedStars = n;
+    document.querySelectorAll('.star-btn').forEach((b, i) => {
+      b.classList.toggle('selected', i < n);
+    });
+  }
+
+  // ── Reseñas ──
+  function enviarResena() {
+    const nombre = document.getElementById('r-nombre').value.trim();
+    const materia = document.getElementById('r-materia').value;
+    const texto = document.getElementById('r-texto').value.trim();
+
+    if (!nombre || !materia || !texto || selectedStars === 0) {
+      alert('Por favor completá todos los campos y seleccioná una calificación.');
+      return;
+    }
+
+    const stars = '★'.repeat(selectedStars) + '☆'.repeat(5 - selectedStars);
+    const card = document.createElement('div');
+    card.className = 'resena-card';
+    card.innerHTML = `
+      <div class="resena-stars">${stars}</div>
+      <p class="resena-texto">"${texto}"</p>
+      <div class="resena-autor">${nombre}</div>
+      <div class="resena-materia">${materia}</div>
+    `;
+
+    const lista = document.getElementById('resenas-lista');
+    lista.insertBefore(card, lista.firstChild);
+
+    document.getElementById('r-nombre').value = '';
+    document.getElementById('r-materia').value = '';
+    document.getElementById('r-texto').value = '';
+    setStars(0);
+
+    const ok = document.getElementById('resena-ok');
+    ok.style.display = 'block';
+    setTimeout(() => ok.style.display = 'none', 4000);
+  }
+
+  // ── Contacto ──
+  async function enviarContacto() {
+    const nombre = document.getElementById('c-nombre').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const tel = document.getElementById('c-tel').value.trim();
+    const interes = document.getElementById('c-interes').value;
+    const mensaje = document.getElementById('c-mensaje').value.trim();
+
+    if (!nombre || !email || !interes || !mensaje) {
+      alert('Por favor completá los campos obligatorios.');
+      return;
+    }
+
+    const btn = document.querySelector('.btn-accent');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/mykvpbdg', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ nombre, email, whatsapp: tel, interes, mensaje })
+      });
+
+      if (res.ok) {
+        document.getElementById('c-nombre').value = '';
+        document.getElementById('c-email').value = '';
+        document.getElementById('c-tel').value = '';
+        document.getElementById('c-interes').value = '';
+        document.getElementById('c-mensaje').value = '';
+        const ok = document.getElementById('contacto-ok');
+        ok.style.display = 'block';
+        setTimeout(() => ok.style.display = 'none', 5000);
+      } else {
+        alert('Hubo un error al enviar. Escribime directamente a Giibanez7@gmail.com');
+      }
+    } catch(e) {
+      alert('Hubo un error al enviar. Escribime directamente a Giibanez7@gmail.com');
+    }
+
+    btn.textContent = 'Enviar mensaje ✉️';
+    btn.disabled = false;
+  }
+
+  // ── Scroll suave ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
